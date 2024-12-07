@@ -1,5 +1,5 @@
 """
-Personas - A Psychologically-Grounded Agent Simulation Framework
+Agient - A Psychologically-Grounded Agent Simulation Framework
 =============================================================
 
 A framework for creating psychologically realistic agent-based simulations
