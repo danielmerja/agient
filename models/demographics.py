@@ -1,5 +1,9 @@
-from pydantic import BaseModel, Field
+"""
+Demographic attributes of an agent.
+"""
+
 from typing import Optional
+from pydantic import BaseModel, Field
 
 class Demographics(BaseModel):
     """Demographic attributes of an agent."""

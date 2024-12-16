@@ -14,10 +14,10 @@ Example:
     response = await llm.generate("What is AI?")
 """
 
+from typing import Dict
 import openai
 from ..base import BaseLLM
 from ..config import LLMResponse, LLMProvider
-from typing import Dict
 
 class OpenAILLM(BaseLLM):
     """OpenAI API integration.

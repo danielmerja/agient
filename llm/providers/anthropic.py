@@ -3,10 +3,10 @@
 This module implements the Anthropic-specific LLM provider interface.
 """
 
+from typing import Dict, Optional
 import anthropic
 from ..base import BaseLLM
 from ..config import LLMResponse, LLMProvider
-from typing import Dict, Optional
 
 class AnthropicLLM(BaseLLM):
     """Anthropic API integration."""

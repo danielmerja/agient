@@ -1,11 +1,15 @@
+"""
+Example of a simulated student agent with LLM capabilities.
+"""
+
+import asyncio
+import os
+from typing import Optional, List, Dict
 from models.personality import Personality
 from models.demographics import Demographics
 from models.base import Message, MessageContent
 from main import Agent, Environment
-from llm.config import LLMConfig, LLMProvider
-import asyncio
-import os
-from typing import Optional, List, Dict
+from llm.config import LLMConfig, LLMProvider, LLMResponse
 
 def create_student() -> Agent:
     """Create a simulated student agent with realistic attributes.

@@ -13,9 +13,9 @@ Example:
     )
 """
 
+from enum import Enum
 from typing import Dict, Optional
 from pydantic import BaseModel, Field
-from enum import Enum
 
 class LLMProvider(str, Enum):
     """Supported LLM providers.

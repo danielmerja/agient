@@ -6,7 +6,8 @@ long-term and short-term memories are stored and retrieved correctly.
 
 import unittest
 from uuid import uuid4
-from llm import LLMConfig, LLMProvider, BaseLLM, LLMResponse
+from llm.config import LLMConfig, LLMProvider, LLMResponse
+from llm.base import BaseLLM
 from main import Agent
 
 class MockLLM(BaseLLM):

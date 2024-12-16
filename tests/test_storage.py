@@ -11,6 +11,8 @@ import os
 from storage import AgentStorage, StoredMemory
 
 class TestAgentStorage(unittest.TestCase):
+    """Test cases for the AgentStorage class."""
+
     def setUp(self):
         """Create a test database."""
         self.test_db = "test_agents.db"
@@ -24,7 +26,7 @@ class TestAgentStorage(unittest.TestCase):
 
     def test_store_and_retrieve_memory(self):
         """Test basic memory storage and retrieval."""
-        memory_id = self.storage.store_memory(
+        self.storage.store_memory(
             self.test_agent_id,
             "Test event",
             sentiment=0.5,

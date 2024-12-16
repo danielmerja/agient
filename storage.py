@@ -6,7 +6,7 @@ associated with agents in a SQLite database.
 """
 
 import sqlite3
-from typing import List, Optional, Dict
+from typing import List
 from datetime import datetime
 from uuid import UUID
 from dataclasses import dataclass

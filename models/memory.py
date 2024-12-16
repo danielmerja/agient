@@ -1,6 +1,10 @@
-from pydantic import BaseModel, Field
+"""
+Memory and Goal models for agent's memory and goal management.
+"""
+
 from typing import Optional
 from datetime import datetime
+from pydantic import BaseModel, Field
 
 class Memory(BaseModel):
     """Represents an agent's memory."""

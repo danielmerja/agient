@@ -1,7 +1,13 @@
-from pydantic import BaseModel, Field
+"""
+Base module for agent communication messages.
+
+This module defines the Message class used for agent-to-agent communication.
+"""
+
 from typing import Dict, Optional, Union
 from uuid import UUID, uuid4
 from datetime import datetime
+from pydantic import BaseModel, Field
 
 MessageContent = Union[str, dict]
 
