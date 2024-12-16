@@ -8,10 +8,11 @@ from llm import LLMConfig, BaseLLM, create_llm, LLMResponse
 from models.personality import Personality
 from models.demographics import Demographics
 from models.memory import Memory, Goal
+from llm.base import MemoryBase
 
 MessageContent = Union[str, dict]
 
-class Agent(BaseModel):
+class Agent(MemoryBase, BaseModel):
     """A simulated person with realistic attributes and behaviors."""
     
     id: UUID = Field(default_factory=uuid4)

@@ -106,3 +106,16 @@ class AgentStorage:
             """, (str(agent_id), str(agent_id), keep_last))
             conn.commit()
             return cursor.rowcount
+
+    def execute_query(self, query: str, params: tuple = ()) -> sqlite3.Cursor:
+        """Execute a query and return the cursor."""
+        with self.get_connection() as conn:
+            cursor = conn.execute(query, params)
+            conn.commit()
+            return cursor
+
+    def fetch_all(self, query: str, params: tuple = ()) -> List[sqlite3.Row]:
+        """Fetch all rows for a query."""
+        with self.get_connection() as conn:
+            cursor = conn.execute(query, params)
+            return cursor.fetchall()
