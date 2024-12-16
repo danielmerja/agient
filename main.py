@@ -11,95 +11,11 @@ from pydantic import BaseModel, Field
 from uuid import UUID, uuid4
 from datetime import datetime
 
-from core.storage import AgentStorage, StoredMemory
+from storage import AgentStorage, StoredMemory
 from llm import LLMConfig, BaseLLM, create_llm, LLMResponse
-from models.message import Message, MessageContent
-from models.personality import Personality, Demographics
+from models.personality import Personality
+from models.demographics import Demographics
 from models.memory import Memory, Goal
-
-# Define strict message content types
-MessageContent = Union[str, int, float, bool, dict, list]
-T = TypeVar('T', bound=MessageContent)
-
-class Message(BaseModel, Generic[T]):
-    """A typed message for agent communication.
-    
-    Attributes:
-        id: Unique message identifier
-        sender: Name of the sending agent
-        receiver: Name of the receiving agent
-        content: Strictly typed message content
-        timestamp: Time when message was created
-        metadata: Additional message metadata
-    """
-    id: UUID = Field(default_factory=uuid4)
-    sender: str
-    receiver: str
-    content: T
-    timestamp: datetime = Field(default_factory=datetime.now)
-    metadata: Dict[str, MessageContent] = Field(default_factory=dict)
-
-class Personality(BaseModel):
-    """Represents the Five Factor Model (Big Five) personality traits.
-    
-    Attributes:
-        openness: Openness to experience (0-1)
-        conscientiousness: Work ethic and organization (0-1)
-        extraversion: Social engagement and energy (0-1)
-        agreeableness: Cooperation and compassion (0-1)
-        neuroticism: Emotional sensitivity and anxiety (0-1)
-    """
-    openness: float = Field(ge=0, le=1)
-    conscientiousness: float = Field(ge=0, le=1) 
-    extraversion: float = Field(ge=0, le=1)
-    agreeableness: float = Field(ge=0, le=1)
-    neuroticism: float = Field(ge=0, le=1)
-
-class Demographics(BaseModel):
-    """Demographic information about an agent.
-    
-    Attributes:
-        age: Age in years
-        gender: Gender identity
-        occupation: Current occupation/profession
-        location: Geographic location
-        education_level: Highest level of education
-        income_bracket: Optional income category
-    """
-    age: int
-    gender: str
-    occupation: str
-    location: str
-    education_level: str
-    income_bracket: Optional[str]
-
-class Memory(BaseModel):
-    """Represents a single memory or experience.
-    
-    Attributes:
-        timestamp: When the memory was formed
-        event: Description of the memory
-        sentiment: Emotional valence (-1 to 1)
-        importance: Significance of the memory (0-1)
-    """
-    timestamp: datetime
-    event: str
-    sentiment: float = Field(ge=-1, le=1)
-    importance: float = Field(ge=0, le=1)
-
-class Goal(BaseModel):
-    """Represents an agent's goal or objective.
-    
-    Attributes:
-        description: What the goal entails
-        priority: Importance level (1-10)
-        progress: Completion progress (0-1)
-        deadline: Optional target completion date
-    """
-    description: str
-    priority: int = Field(ge=1, le=10)
-    progress: float = Field(ge=0, le=1)
-    deadline: Optional[datetime]
 
 class Agent(BaseModel):
     """A simulated person with realistic attributes and behaviors."""

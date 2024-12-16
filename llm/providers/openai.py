@@ -17,6 +17,7 @@ Example:
 import openai
 from ..base import BaseLLM
 from ..config import LLMResponse, LLMProvider
+from typing import Any
 
 class OpenAILLM(BaseLLM):
     """OpenAI API integration.
@@ -44,7 +45,8 @@ class OpenAILLM(BaseLLM):
         Raises:
             Exception: If API key is invalid or initialization fails
         """
-        self._client = openai.OpenAI(api_key=self.config.api_key)
+        openai.api_key = self.config.api_key
+        self._client = openai
     
     async def generate(self, prompt: str) -> LLMResponse:
         """Generate a response using OpenAI's API.
@@ -59,7 +61,7 @@ class OpenAILLM(BaseLLM):
             openai.Error: If the API call fails
             ValueError: If response parsing fails
         """
-        response = await self.client.chat.completions.create(
+        response = await self.client.ChatCompletion.create(
             model=self.config.model,
             messages=[{"role": "user", "content": prompt}],
             temperature=self.config.temperature,
@@ -67,7 +69,7 @@ class OpenAILLM(BaseLLM):
             **self.config.additional_params
         )
         return LLMResponse(
-            content=response.choices[0].message.content,
-            metadata={"usage": response.usage.dict()},
+            content=response.choices[0].message["content"],
+            metadata={"usage": response["usage"]},
             provider=LLMProvider.OPENAI
         )
