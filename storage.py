@@ -1,3 +1,9 @@
+"""
+This module handles SQLite storage operations for agent memories.
+
+It provides functionality to store, retrieve, and manage memories
+associated with agents in a SQLite database.
+"""
 
 import sqlite3
 from typing import List, Optional, Dict
