@@ -14,7 +14,7 @@ Example:
 """
 
 from abc import ABC, abstractmethod
-from typing import Optional
+from typing import Optional, List
 from .config import LLMConfig, LLMResponse
 
 class BaseLLM(ABC):
@@ -84,3 +84,23 @@ class BaseLLM(ABC):
         if self._client is None:
             self._initialize_client()
         return self._client
+
+    @abstractmethod
+    def store_long_term_memory(self, event: str, sentiment: float, importance: float) -> None:
+        """Store a long-term memory with emotional context."""
+        pass
+
+    @abstractmethod
+    def retrieve_long_term_memories(self, limit: int = 100) -> List[str]:
+        """Retrieve long-term memories from storage."""
+        pass
+
+    @abstractmethod
+    def store_short_term_memory(self, event: str, sentiment: float, importance: float) -> None:
+        """Store a short-term memory with emotional context."""
+        pass
+
+    @abstractmethod
+    def retrieve_short_term_memories(self, limit: int = 10) -> List[str]:
+        """Retrieve short-term memories from storage."""
+        pass

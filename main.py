@@ -169,6 +169,38 @@ Respond with just the chosen option."""
             deadline=deadline
         ))
 
+    def store_long_term_memory(self, event: str, sentiment: float, importance: float) -> None:
+        """Store a long-term memory with emotional context."""
+        if self._storage:
+            self._storage.store_memory(
+                self.id,
+                event,
+                sentiment,
+                importance
+            )
+
+    def retrieve_long_term_memories(self, limit: int = 100) -> List[StoredMemory]:
+        """Retrieve long-term memories from storage."""
+        if self._storage:
+            return self._storage.get_memories(self.id, limit)
+        return []
+
+    def store_short_term_memory(self, event: str, sentiment: float, importance: float) -> None:
+        """Store a short-term memory with emotional context."""
+        if self._storage:
+            self._storage.store_memory(
+                self.id,
+                event,
+                sentiment,
+                importance
+            )
+
+    def retrieve_short_term_memories(self, limit: int = 10) -> List[StoredMemory]:
+        """Retrieve short-term memories from storage."""
+        if self._storage:
+            return self._storage.get_memories(self.id, limit)
+        return []
+
 class Environment(BaseModel):
     """Enhanced environment with social network support."""
     
