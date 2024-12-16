@@ -74,19 +74,19 @@ def create_smart_senator() -> Agent:
         )
     )
 
-async def main():
+async def main() -> None:
     env = Environment()
     senator = create_smart_senator()
     
     # Test LLM-powered thinking
-    response = await senator.think(
+    response: Optional[LLMResponse] = await senator.think(
         "A new climate bill has been proposed that would increase regulations on coal plants."
     )
     if response:
         print(f"Senator's thoughts: {response.content}")
     
     # Test LLM-powered decision making
-    decision = await senator.make_decision(
+    decision: str = await senator.make_decision(
         options=["Support bill", "Oppose bill", "Propose amendments"],
         context={"public_support": 0.65, "economic_impact": -0.2}
     )

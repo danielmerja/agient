@@ -17,7 +17,7 @@ Example:
 import openai
 from ..base import BaseLLM
 from ..config import LLMResponse, LLMProvider
-from typing import Any
+from typing import Any, Dict
 
 class OpenAILLM(BaseLLM):
     """OpenAI API integration.

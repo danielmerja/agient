@@ -1,0 +1,33 @@
+[MASTER]
+ignore=CVS
+
+[MESSAGES CONTROL]
+disable=
+    C0111,  # Missing docstring
+    C0103,  # Variable name doesn't conform to snake_case naming style
+    R0903,  # Too few public methods
+    R0902,  # Too many instance attributes
+    R0913,  # Too many arguments
+    R0914,  # Too many local variables
+    R0915,  # Too many statements
+    W0511,  # TODO/FIXME comments
+
+[FORMAT]
+max-line-length=88
+
+[DESIGN]
+max-args=10
+max-locals=15
+max-returns=6
+max-branches=12
+max-statements=50
+max-attributes=10
+max-public-methods=20
+
+[TYPECHECK]
+generated-members=numpy.*, torch.*
+
+[REPORTS]
+output-format=colorized
+reports=no
+score=no
