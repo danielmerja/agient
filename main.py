@@ -64,7 +64,7 @@ class Agent(BaseModel):
     # Dynamic attributes
     state: Dict[str, MessageContent] = Field(default_factory=dict)
     memories: List[Memory] = Field(default_factory=list)
-    goals: List[Goal] = Field(default_factory=list)
+    goals: List[Goal] = Field(default_factory.list)
     current_focus: Optional[str] = None
     
     message_handler: Optional[Callable[[Message], None]] = None
