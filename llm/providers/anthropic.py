@@ -1,4 +1,3 @@
-
 """Anthropic API integration module.
 
 This module implements the Anthropic-specific LLM provider interface.
@@ -7,6 +6,7 @@ This module implements the Anthropic-specific LLM provider interface.
 import anthropic
 from ..base import BaseLLM
 from ..config import LLMResponse, LLMProvider
+from typing import Any
 
 class AnthropicLLM(BaseLLM):
     """Anthropic API integration."""
@@ -17,15 +17,15 @@ class AnthropicLLM(BaseLLM):
     
     async def generate(self, prompt: str) -> LLMResponse:
         """Generate a response using Anthropic's API."""
-        response = await self.client.messages.create(
+        response = await self.client.completions.create(
             model=self.config.model,
-            messages=[{"role": "user", "content": prompt}],
+            prompt=prompt,
             temperature=self.config.temperature,
             max_tokens=self.config.max_tokens,
             **self.config.additional_params
         )
         return LLMResponse(
-            content=response.content,
-            metadata={},
+            content=response.completion,
+            metadata={"usage": response.usage},
             provider=LLMProvider.ANTHROPIC
         )

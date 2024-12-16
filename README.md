@@ -19,7 +19,6 @@ Agient is a Python framework for creating psychologically realistic agent-based 
 - 💭 **LLM Integration**
   - OpenAI GPT-4/3.5
   - Anthropic Claude
-  - Groq
   - Extensible provider system
 
 - 📊 **Memory Management**
@@ -27,3 +26,74 @@ Agient is a Python framework for creating psychologically realistic agent-based 
   - Importance-based memory filtering
   - Emotional context tracking
   - Memory cleanup utilities
+
+## File Structure
+
+The project has been organized into a more structured format:
+
+```
+agient/
+├── examples.py
+├── llm/
+│   ├── __init__.py
+│   ├── base.py
+│   ├── config.py
+│   ├── providers/
+│   │   ├── __init__.py
+│   │   ├── openai.py
+│   │   └── anthropic.py
+├── main.py
+├── models/
+│   ├── __init__.py
+│   ├── base.py
+│   ├── demographics.py
+│   ├── memory.py
+│   └── personality.py
+├── storage.py
+├── tests/
+│   ├── __init__.py
+│   └── test_storage.py
+├── pyproject.toml
+└── README.md
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.11 or later
+- An OpenAI API key (for LLM integration)
+- An Anthropic API key (for LLM integration)
+
+### Installation
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/danielmerja/agient.git
+   cd agient
+   ```
+
+2. Install dependencies:
+   ```sh
+   poetry install
+   ```
+
+3. Set up environment variables for API keys:
+   ```sh
+   export OPENAI_API_KEY="your_openai_api_key"
+   export ANTHROPIC_API_KEY="your_anthropic_api_key"
+   ```
+
+### Running Examples
+
+To run the provided examples, execute:
+```sh
+python examples.py
+```
+
+### Running Tests
+
+To run the tests, execute:
+```sh
+pytest
+```

@@ -1,8 +1,11 @@
-from main import Agent, Environment, Message, MessageContent, Demographics, Personality
-from datetime import datetime, timedelta
-from llm import LLMConfig, LLMProvider
+from models.personality import Personality
+from models.demographics import Demographics
+from models.base import Message, MessageContent
+from main import Agent, Environment
+from llm.config import LLMConfig, LLMProvider
 import asyncio
 import os
+from typing import Optional, List, Dict
 
 def echo_handler(message: Message[MessageContent]) -> None:
     """Simple message handler that prints received messages.
@@ -79,7 +82,8 @@ async def main():
     response = await senator.think(
         "A new climate bill has been proposed that would increase regulations on coal plants."
     )
-    print(f"Senator's thoughts: {response.content}")
+    if response:
+        print(f"Senator's thoughts: {response.content}")
     
     # Test LLM-powered decision making
     decision = await senator.make_decision(
