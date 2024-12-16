@@ -41,7 +41,7 @@ class BaseLLM(ABC):
             config: Configuration object containing API keys and settings
         """
         self.config = config
-        self._client: Optional[Any] = None
+        self._client: Optional[object] = None
 
     @abstractmethod
     async def generate(self, prompt: str) -> LLMResponse:
@@ -71,7 +71,7 @@ class BaseLLM(ABC):
         pass
 
     @property
-    def client(self) -> Any:
+    def client(self) -> object:
         """Lazy initialization of the API client.
         
         Returns:

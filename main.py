@@ -17,6 +17,32 @@ from models.personality import Personality
 from models.demographics import Demographics
 from models.memory import Memory, Goal
 
+MessageContent = Union[str, dict]
+
+class Message(BaseModel):
+    """A typed message for agent communication."""
+    id: UUID = Field(
+        default_factory=uuid4,
+        description="Unique identifier for the message"
+    )
+    sender: str = Field(
+        description="Name of the agent sending the message"
+    )
+    receiver: str = Field(
+        description="Name of the agent receiving the message"
+    )
+    content: MessageContent = Field(
+        description="Content of the message in any supported format"
+    )
+    timestamp: datetime = Field(
+        default_factory=datetime.now,
+        description="Time when the message was created"
+    )
+    metadata: Dict[str, Union[str, float]] = Field(
+        default_factory=dict,
+        description="Additional message metadata and context"
+    )
+
 class Agent(BaseModel):
     """A simulated person with realistic attributes and behaviors."""
     
@@ -41,18 +67,18 @@ class Agent(BaseModel):
     goals: List[Goal] = Field(default_factory=list)
     current_focus: Optional[str] = None
     
-    message_handler: Optional[Callable[[Message[MessageContent]], None]] = None
+    message_handler: Optional[Callable[[Message], None]] = None
     _storage: Optional[AgentStorage] = None
     llm_config: Optional[LLMConfig] = None
     _llm: Optional[BaseLLM] = None
 
-    def __init__(self, **data):
+    def __init__(self, **data: Union[str, int, float, dict, list, None]):
         super().__init__(**data)
         self._storage = AgentStorage()
         if self.llm_config:
             self._llm = create_llm(self.llm_config)
 
-    def send_message(self, receiver: str, content: MessageContent) -> Message[MessageContent]:
+    def send_message(self, receiver: str, content: MessageContent) -> Message:
         """Send a message influenced by personality and relationship."""
         return Message(
             sender=self.name,
@@ -64,7 +90,7 @@ class Agent(BaseModel):
             }
         )
 
-    def update_memory(self, event: str, sentiment: float, importance: float):
+    def update_memory(self, event: str, sentiment: float, importance: float) -> None:
         """Record a new memory with emotional context."""
         if self._storage:
             self._storage.store_memory(
@@ -103,7 +129,7 @@ What are your thoughts and how would you respond?"""
 
         return await self._llm.generate(prompt)
 
-    async def make_decision(self, options: List[str], context: Dict) -> str:
+    async def make_decision(self, options: List[str], context: Dict[str, Union[str, float]]) -> str:
         """Make a decision using LLM capabilities."""
         if not self._llm:
             return options[0]  # Default to first option if no LLM
@@ -124,7 +150,7 @@ Respond with just the chosen option."""
         response = await self._llm.generate(prompt)
         return response.content.strip()
 
-    def update_relationships(self, other_agent: str, interaction_score: float):
+    def update_relationships(self, other_agent: str, interaction_score: float) -> None:
         """Update relationship scores based on interactions.
         
         Args:
@@ -134,7 +160,7 @@ Respond with just the chosen option."""
         current = self.relationships.get(other_agent, 0)
         self.relationships[other_agent] = max(min(current + interaction_score, 1), -1)
 
-    def set_goal(self, description: str, priority: int, deadline: Optional[datetime] = None):
+    def set_goal(self, description: str, priority: int, deadline: Optional[datetime] = None) -> None:
         """Add a new goal for the agent to pursue."""
         self.goals.append(Goal(
             description=description,
@@ -147,7 +173,7 @@ class Environment(BaseModel):
     """Enhanced environment with social network support."""
     
     agents: Dict[str, Agent] = Field(default_factory=dict)
-    message_history: List[Message[MessageContent]] = Field(default_factory=list)
+    message_history: List[Message] = Field(default_factory=list)
 
     def register_agent(self, agent: Agent) -> None:
         """Registers an agent in the environment.
@@ -157,7 +183,7 @@ class Environment(BaseModel):
         """
         self.agents[agent.name] = agent
 
-    def send_message(self, message: Message[MessageContent]) -> None:
+    def send_message(self, message: Message) -> None:
         """Delivers a message to its intended recipient.
         
         Args:
@@ -176,7 +202,7 @@ class Environment(BaseModel):
         """
         for agent_name in self.agents:
             if agent_name != sender:
-                message = Message[MessageContent](sender=sender, receiver=agent_name, content=content)
+                message = Message(sender=sender, receiver=agent_name, content=content)
                 self.send_message(message)
 
     def get_social_network(self, agent_name: str, depth: int = 1) -> Set[str]:
