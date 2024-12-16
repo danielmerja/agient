@@ -33,7 +33,10 @@ The project has been organized into a more structured format:
 
 ```
 agient/
-├── examples.py
+├── examples/
+│   ├── senator_example.py
+│   ├── teacher_example.py
+│   └── student_example.py
 ├── llm/
 │   ├── __init__.py
 │   ├── base.py
@@ -88,7 +91,9 @@ agient/
 
 To run the provided examples, execute:
 ```sh
-python examples.py
+python examples/senator_example.py
+python examples/teacher_example.py
+python examples/student_example.py
 ```
 
 ### Running Tests
