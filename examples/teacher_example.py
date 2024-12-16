@@ -5,12 +5,18 @@ Example of a simulated teacher agent with LLM capabilities.
 import asyncio
 import os
 from typing import Optional, List, Dict
-from models.personality import Personality
-from models.demographics import Demographics
 from models.base import Message, MessageContent
-from models.agent import Agent
 from models.environment import Environment
 from llm.config import LLMConfig, LLMProvider, LLMResponse
+from examples.common import create_agent
+
+def echo_handler(message: Message[MessageContent]) -> None:
+    """Simple message handler that prints received messages.
+    
+    Args:
+        message: The message to echo, containing sender, receiver and content
+    """
+    print(f"Agent {message.receiver} received: {message.content}")
 
 def create_teacher() -> Agent:
     """Create a simulated teacher agent with realistic attributes.
@@ -19,23 +25,19 @@ def create_teacher() -> Agent:
         An Agent instance configured with teacher-appropriate traits,
         demographics, and capabilities
     """
-    return Agent(
+    return create_agent(
         name="Teacher Johnson",
-        demographics=Demographics(
-            age=40,
-            gender="M",
-            occupation="Teacher",
-            location="New York",
-            education_level="MEd",
-            income_bracket="Medium"
-        ),
-        personality=Personality(
-            openness=0.8,
-            conscientiousness=0.9,
-            extraversion=0.7,
-            agreeableness=0.8,
-            neuroticism=0.4
-        ),
+        age=40,
+        gender="M",
+        occupation="Teacher",
+        location="New York",
+        education_level="MEd",
+        income_bracket="Medium",
+        openness=0.8,
+        conscientiousness=0.9,
+        extraversion=0.7,
+        agreeableness=0.8,
+        neuroticism=0.4,
         capabilities=["teach", "mentor", "evaluate"],
         beliefs={"education_reform": 0.9, "technology_integration": 0.7},
         values={"knowledge": 0.9, "student_success": 0.8}
@@ -43,32 +45,28 @@ def create_teacher() -> Agent:
 
 def create_smart_teacher() -> Agent:
     """Create a teacher agent with LLM capabilities."""
-    return Agent(
+    return create_agent(
         name="Teacher Johnson",
-        demographics=Demographics(
-            age=40,
-            gender="M",
-            occupation="Teacher",
-            location="New York",
-            education_level="MEd",
-            income_bracket="Medium"
-        ),
-        personality=Personality(
-            openness=0.8,
-            conscientiousness=0.9,
-            extraversion=0.7,
-            agreeableness=0.8,
-            neuroticism=0.4
-        ),
+        age=40,
+        gender="M",
+        occupation="Teacher",
+        location="New York",
+        education_level="MEd",
+        income_bracket="Medium",
+        openness=0.8,
+        conscientiousness=0.9,
+        extraversion=0.7,
+        agreeableness=0.8,
+        neuroticism=0.4,
         capabilities=["teach", "mentor", "evaluate"],
         beliefs={"education_reform": 0.9, "technology_integration": 0.7},
         values={"knowledge": 0.9, "student_success": 0.8},
-        llm_config=LLMConfig(
-            provider=LLMProvider.OPENAI,
-            model="gpt-4",
-            api_key=os.getenv("OPENAI_API_KEY"),
-            temperature=0.7
-        )
+        llm_config={
+            "provider": "OPENAI",
+            "model": "gpt-4",
+            "api_key": os.getenv("OPENAI_API_KEY"),
+            "temperature": 0.7
+        }
     )
 
 async def main() -> None:

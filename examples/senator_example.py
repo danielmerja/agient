@@ -5,12 +5,10 @@ Example of a simulated senator agent with LLM capabilities.
 import asyncio
 import os
 from typing import Optional, List, Dict
-from models.personality import Personality
-from models.demographics import Demographics
 from models.base import Message, MessageContent
-from models.agent import Agent
 from models.environment import Environment
 from llm.config import LLMConfig, LLMProvider, LLMResponse
+from examples.common import create_agent
 
 def echo_handler(message: Message[MessageContent]) -> None:
     """Simple message handler that prints received messages.
@@ -27,23 +25,19 @@ def create_senator() -> Agent:
         An Agent instance configured with senator-appropriate traits,
         demographics, and capabilities
     """
-    return Agent(
+    return create_agent(
         name="Senator Smith",
-        demographics=Demographics(
-            age=55,
-            gender="F",
-            occupation="Senator",
-            location="Washington DC",
-            education_level="JD",
-            income_bracket="High"
-        ),
-        personality=Personality(
-            openness=0.7,
-            conscientiousness=0.8,
-            extraversion=0.9,
-            agreeableness=0.6,
-            neuroticism=0.3
-        ),
+        age=55,
+        gender="F",
+        occupation="Senator",
+        location="Washington DC",
+        education_level="JD",
+        income_bracket="High",
+        openness=0.7,
+        conscientiousness=0.8,
+        extraversion=0.9,
+        agreeableness=0.6,
+        neuroticism=0.3,
         capabilities=["debate", "negotiate", "public_speaking"],
         beliefs={"climate_change": 0.8, "healthcare_reform": 0.7},
         values={"integrity": 0.9, "public_service": 0.8}
@@ -51,32 +45,28 @@ def create_senator() -> Agent:
 
 def create_smart_senator() -> Agent:
     """Create a senator agent with LLM capabilities."""
-    return Agent(
+    return create_agent(
         name="Senator Smith",
-        demographics=Demographics(
-            age=55,
-            gender="F",
-            occupation="Senator",
-            location="Washington DC",
-            education_level="JD",
-            income_bracket="High"
-        ),
-        personality=Personality(
-            openness=0.7,
-            conscientiousness=0.8,
-            extraversion=0.9,
-            agreeableness=0.6,
-            neuroticism=0.3
-        ),
+        age=55,
+        gender="F",
+        occupation="Senator",
+        location="Washington DC",
+        education_level="JD",
+        income_bracket="High",
+        openness=0.7,
+        conscientiousness=0.8,
+        extraversion=0.9,
+        agreeableness=0.6,
+        neuroticism=0.3,
         capabilities=["debate", "negotiate", "public_speaking"],
         beliefs={"climate_change": 0.8, "healthcare_reform": 0.7},
         values={"integrity": 0.9, "public_service": 0.8},
-        llm_config=LLMConfig(
-            provider=LLMProvider.OPENAI,
-            model="gpt-4",
-            api_key=os.getenv("OPENAI_API_KEY"),
-            temperature=0.7
-        )
+        llm_config={
+            "provider": "OPENAI",
+            "model": "gpt-4",
+            "api_key": os.getenv("OPENAI_API_KEY"),
+            "temperature": 0.7
+        }
     )
 
 async def main() -> None:
@@ -102,14 +92,14 @@ async def main() -> None:
     senator.store_long_term_memory("Debated healthcare reform", sentiment=0.7, importance=0.6)
     long_term_memories = senator.retrieve_long_term_memories(limit=2)
     print("Long-term memories:")
-    for memory in long_term_memories:
+    for memory in long term_memories:
         print(f"- {memory}")
 
     # Demonstrate short-term memory
     senator.store_short_term_memory("Received new policy proposal", sentiment=0.5, importance=0.4)
     short_term_memories = senator.retrieve_short_term_memories(limit=1)
     print("Short-term memories:")
-    for memory in short_term_memories:
+    for memory in short term memories:
         print(f"- {memory}")
 
 if __name__ == "__main__":
