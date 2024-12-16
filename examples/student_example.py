@@ -8,7 +8,8 @@ from typing import Optional, List, Dict
 from models.personality import Personality
 from models.demographics import Demographics
 from models.base import Message, MessageContent
-from main import Agent, Environment
+from models.agent import Agent
+from models.environment import Environment
 from llm.config import LLMConfig, LLMProvider, LLMResponse
 
 def create_student() -> Agent:
@@ -100,7 +101,7 @@ async def main() -> None:
     student.store_short_term_memory("Received new assignment", sentiment=0.6, importance=0.5)
     short_term_memories = student.retrieve_short_term_memories(limit=1)
     print("Short-term memories:")
-    for memory in short_term_memories:
+    for memory in short term_memories:
         print(f"- {memory}")
 
 if __name__ == "__main__":
