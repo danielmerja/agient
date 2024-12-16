@@ -1,3 +1,5 @@
+# pylint: disable=import-error
+
 from models.personality import Personality
 from models.demographics import Demographics
 from models.base import Message, MessageContent
@@ -104,8 +106,7 @@ async def main() -> None:
     senator.store_short_term_memory("Received new policy proposal", sentiment=0.5, importance=0.4)
     short_term_memories = senator.retrieve_short_term_memories(limit=1)
     print("Short-term memories:")
-    for memory in short_term_memories:
-        print(f"- {memory}")
+    for memory in short_term_memories, print(f"- {memory}")
 
 if __name__ == "__main__":
     asyncio.run(main())

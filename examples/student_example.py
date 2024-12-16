@@ -1,3 +1,5 @@
+# pylint: disable=import-error
+
 from models.personality import Personality
 from models.demographics import Demographics
 from models.base import Message, MessageContent
