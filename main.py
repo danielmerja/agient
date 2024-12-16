@@ -171,34 +171,24 @@ Respond with just the chosen option."""
 
     def store_long_term_memory(self, event: str, sentiment: float, importance: float) -> None:
         """Store a long-term memory with emotional context."""
-        if self._storage:
-            self._storage.store_memory(
-                self.id,
-                event,
-                sentiment,
-                importance
-            )
+        if self._llm:
+            self._llm.store_long_term_memory(event, sentiment, importance)
 
-    def retrieve_long_term_memories(self, limit: int = 100) -> List[StoredMemory]:
+    def retrieve_long_term_memories(self, limit: int = 100) -> List[str]:
         """Retrieve long-term memories from storage."""
-        if self._storage:
-            return self._storage.get_memories(self.id, limit)
+        if self._llm:
+            return self._llm.retrieve_long_term_memories(limit)
         return []
 
     def store_short_term_memory(self, event: str, sentiment: float, importance: float) -> None:
         """Store a short-term memory with emotional context."""
-        if self._storage:
-            self._storage.store_memory(
-                self.id,
-                event,
-                sentiment,
-                importance
-            )
+        if self._llm:
+            self._llm.store_short_term_memory(event, sentiment, importance)
 
-    def retrieve_short_term_memories(self, limit: int = 10) -> List[StoredMemory]:
+    def retrieve_short_term_memories(self, limit: int = 10) -> List[str]:
         """Retrieve short-term memories from storage."""
-        if self._storage:
-            return self._storage.get_memories(self.id, limit)
+        if self._llm:
+            return self._llm.retrieve_short_term_memories(limit)
         return []
 
 class Environment(BaseModel):
