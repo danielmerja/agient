@@ -1,3 +1,9 @@
+"""Unit tests for LLM memory functionality.
+
+This file contains unit tests for the LLM memory functionality, ensuring that
+long-term and short-term memories are stored and retrieved correctly.
+"""
+
 import unittest
 from uuid import uuid4
 from llm import LLMConfig, LLMProvider, BaseLLM, LLMResponse
