@@ -1,3 +1,10 @@
+"""
+LLM Initialization Module
+
+This module provides the initialization and factory functions for creating
+LLM instances based on the provided configuration.
+"""
+
 from .base import BaseLLM
 from .config import LLMConfig, LLMResponse, LLMProvider
 from .providers.openai import OpenAILLM

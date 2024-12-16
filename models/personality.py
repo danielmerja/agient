@@ -1,3 +1,7 @@
+"""
+This module defines the Five Factor Model personality traits for agents.
+"""
+
 from pydantic import BaseModel, Field
 
 class Personality(BaseModel):

@@ -1,13 +1,15 @@
-# pylint: disable=import-error
+"""
+Example of a simulated senator agent with LLM capabilities.
+"""
 
+import asyncio
+import os
+from typing import Optional, List, Dict
 from models.personality import Personality
 from models.demographics import Demographics
 from models.base import Message, MessageContent
 from main import Agent, Environment
-from llm.config import LLMConfig, LLMProvider
-import asyncio
-import os
-from typing import Optional, List, Dict
+from llm.config import LLMConfig, LLMProvider, LLMResponse
 
 def echo_handler(message: Message[MessageContent]) -> None:
     """Simple message handler that prints received messages.
