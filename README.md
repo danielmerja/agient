@@ -32,7 +32,6 @@ Agient is a Python framework for creating psychologically realistic agent-based 
 The project has been organized into a more structured format:
 
 ```
-agient/
 ├── examples/
 │   ├── senator_example.py
 │   ├── teacher_example.py
