@@ -65,3 +65,11 @@ class LLMConfig(BaseModel):
         default_factory=dict,
         description="Additional provider-specific parameters (e.g., top_p, presence_penalty)"
     )
+    long_term_memory_limit: int = Field(
+        default=1000,
+        description="Maximum number of long-term memories to store"
+    )
+    short_term_memory_limit: int = Field(
+        default=100,
+        description="Maximum number of short-term memories to store"
+    )
