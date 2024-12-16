@@ -1,7 +1,9 @@
 from pydantic import BaseModel, Field
-from typing import Dict, Any, Optional, Union
+from typing import Dict, Optional, Union
 from uuid import UUID, uuid4
 from datetime import datetime
+
+MessageContent = Union[str, dict]
 
 class Message(BaseModel):
     """A typed message for agent communication."""
@@ -15,16 +17,14 @@ class Message(BaseModel):
     receiver: str = Field(
         description="Name of the agent receiving the message"
     )
-    content: Any = Field(
+    content: MessageContent = Field(
         description="Content of the message in any supported format"
     )
     timestamp: datetime = Field(
         default_factory=datetime.now,
         description="Time when the message was created"
     )
-    metadata: Dict[str, Any] = Field(
+    metadata: Dict[str, MessageContent] = Field(
         default_factory=dict,
         description="Additional message metadata and context"
     )
-
-MessageContent = Union[str, dict]

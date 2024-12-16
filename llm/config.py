@@ -13,7 +13,7 @@ Example:
     )
 """
 
-from typing import Dict, Any, Optional
+from typing import Dict, Optional
 from pydantic import BaseModel, Field
 from enum import Enum
 
@@ -32,7 +32,7 @@ class LLMResponse(BaseModel):
     content: str = Field(
         description="Generated text response from the LLM"
     )
-    metadata: Dict[str, Any] = Field(
+    metadata: Dict[str, str] = Field(
         default_factory=dict,
         description="Response metadata including tokens, timings, and provider-specific info"
     )
@@ -61,7 +61,7 @@ class LLMConfig(BaseModel):
         default=None,
         description="Maximum number of tokens to generate in response"
     )
-    additional_params: Dict[str, Any] = Field(
+    additional_params: Dict[str, str] = Field(
         default_factory=dict,
         description="Additional provider-specific parameters (e.g., top_p, presence_penalty)"
     )
