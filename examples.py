@@ -93,19 +93,19 @@ async def main() -> None:
     print(f"Senator's decision: {decision}")
 
     # Demonstrate long-term memory
-    senator.update_memory("Attended climate summit", sentiment=0.9, importance=0.8)
-    senator.update_memory("Debated healthcare reform", sentiment=0.7, importance=0.6)
-    recent_memories = senator.get_recent_memories(limit=2)
-    print("Recent memories:")
-    for memory in recent_memories:
-        print(f"- {memory.event} (Sentiment: {memory.sentiment}, Importance: {memory.importance})")
+    senator.store_long_term_memory("Attended climate summit", sentiment=0.9, importance=0.8)
+    senator.store_long_term_memory("Debated healthcare reform", sentiment=0.7, importance=0.6)
+    long_term_memories = senator.retrieve_long_term_memories(limit=2)
+    print("Long-term memories:")
+    for memory in long_term_memories:
+        print(f"- {memory}")
 
     # Demonstrate short-term memory
-    senator.update_memory("Received new policy proposal", sentiment=0.5, importance=0.4)
-    short_term_memories = senator.get_recent_memories(limit=1)
-    print("Short-term memory:")
+    senator.store_short_term_memory("Received new policy proposal", sentiment=0.5, importance=0.4)
+    short_term_memories = senator.retrieve_short_term_memories(limit=1)
+    print("Short-term memories:")
     for memory in short_term_memories:
-        print(f"- {memory.event} (Sentiment: {memory.sentiment}, Importance: {memory.importance})")
+        print(f"- {memory}")
 
 if __name__ == "__main__":
     asyncio.run(main())
