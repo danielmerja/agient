@@ -54,7 +54,7 @@ class Agent(BaseModel):
     # Core attributes
     capabilities: List[str] = Field(default_factory=list)
     beliefs: Dict[str, float] = Field(default_factory=dict)
-    values: Dict[str, float] = Field(default_factory=dict)
+    values: Dict[str, float] = Field(default_factory.dict)
     
     # Social attributes
     relationships: Dict[str, float] = Field(default_factory=dict)
