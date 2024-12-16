@@ -8,7 +8,8 @@ from typing import Optional, List, Dict
 from models.personality import Personality
 from models.demographics import Demographics
 from models.base import Message, MessageContent
-from main import Agent, Environment
+from models.agent import Agent
+from models.environment import Environment
 from llm.config import LLMConfig, LLMProvider, LLMResponse
 
 def create_teacher() -> Agent:
@@ -93,14 +94,14 @@ async def main() -> None:
     teacher.store_long_term_memory("Implemented new teaching strategy", sentiment=0.9, importance=0.8)
     long_term_memories = teacher.retrieve_long_term_memories(limit=2)
     print("Long-term memories:")
-    for memory in long_term_memories:
+    for memory in long term_memories:
         print(f"- {memory}")
 
     # Demonstrate short-term memory
     teacher.store_short_term_memory("Received new curriculum guidelines", sentiment=0.6, importance=0.5)
-    short_term_memories = teacher.retrieve_short_term_memories(limit=1)
+    short term_memories = teacher.retrieve_short term_memories(limit=1)
     print("Short-term memories:")
-    for memory in short_term_memories:
+    for memory in short term_memories:
         print(f"- {memory}")
 
 if __name__ == "__main__":

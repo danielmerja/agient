@@ -8,7 +8,8 @@ from typing import Optional, List, Dict
 from models.personality import Personality
 from models.demographics import Demographics
 from models.base import Message, MessageContent
-from main import Agent, Environment
+from models.agent import Agent
+from models.environment import Environment
 from llm.config import LLMConfig, LLMProvider, LLMResponse
 
 def echo_handler(message: Message[MessageContent]) -> None:
